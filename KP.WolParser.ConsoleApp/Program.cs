@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -35,10 +36,24 @@ namespace KP.WolParser.ConsoleApp
                 }
                 File.WriteAllText(filePath, JsonConvert.SerializeObject(insightEntries), utf8);
             }
+
+
+            Console.WriteLine($"Sum of pages {insightEntries.Sum(p => p.SizeInPages)}");
+
+            Console.WriteLine($"Total {insightEntries.Count}");
+            Console.WriteLine($"Total of one pagers {insightEntries.Count(p => p.SizeInPages == 1)}");
+            Console.WriteLine($"Total of > 2 pagers {insightEntries.Count(p => p.SizeInPages > 2)}");
+            Console.WriteLine($"Total of > 9 pagers {insightEntries.Count(p => p.SizeInPages > 9)}");
+            Console.WriteLine($"Total of > 9 pagers \n{string.Join("\n ", insightEntries.Where(p => p.SizeInPages > 9).Select(pp => pp.Name))}");
+            Console.WriteLine($"Total of < 10 pagers >5 {insightEntries.Count(p => p.SizeInPages > 5 && p.SizeInPages < 10)}");
+            Console.WriteLine($"Total of < 10 pagers >5 \n{string.Join("\n ", insightEntries.Where(p => p.SizeInPages > 5 && p.SizeInPages < 10).Select(pp => pp.Name))}");
+
+
             Console.WriteLine("Read All Insight?");
             var read = Console.ReadLine();
+
             if (read != "Y") return;
-            return;
+
             List<Task> listOfTasks = new List<Task>();
             try
             {

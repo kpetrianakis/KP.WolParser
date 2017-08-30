@@ -20,7 +20,7 @@ namespace KP.WolParser
 
             entry.Content = article.InnerText;
 
-            Console.WriteLine($"{entry.Name}: {entry.Size}");
+            Console.WriteLine($"{entry.Name}: {entry.SizeInChars}");
         }
 
         public static async Task<List<InsightEntry>> GetInsightIndexForLetter(Uri uri)
